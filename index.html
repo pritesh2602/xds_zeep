@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Retrieval</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #e3f2fd; /* Light Blue Background */
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .card {
+            text-align: center;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .btn-primary {
+            width: 100%;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .document-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .document-list .card {
+            flex: 1 1 calc(25% - 10px);
+            padding: 15px;
+            opacity: 0;
+            animation: slideUp 0.5s ease-in-out forwards;
+        }
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .selected-card {
+            background-color: #d1ecf1; /* Light blue background for selected card */
+            border: 2px solid #0c5460; /* Darker border for emphasis */
+            transition: background-color 0.3s ease, border 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3 class="text-center mb-4">Document Retrieval System</h3>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Enter Patient ID" id="patientId">
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" id="getDocument">GET DOCUMENT</button>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <h5>Upload a Document:</h5>
+            <select id="uploadPatientId" class="form-control mb-2">
+                <option value="12335^^^&1.2.3.4.5&ISO">12335^^^&1.2.3.4.5&ISO</option>
+                <option value="98765^^^&1.2.3.4.5&ISO">98765^^^&1.2.3.4.5&ISO</option>
+                <option value="PATIENT1^^^&1.2.3.4.5&ISO">PATIENT1^^^&1.2.3.4.5&ISO</option>
+                <option value="PATIENT2^^^&1.2.3.4.5&ISO">PATIENT2^^^&1.2.3.4.5&ISO</option>
+                <option value="TEST123^^^&1.2.3.4.5&ISO">TEST123^^^&1.2.3.4.5&ISO</option>
+            </select>
+            <input type="file" id="fileInput" class="form-control mb-2">
+            <button class="btn btn-primary w-100" id="uploadFile">UPLOAD FILE</button>
+            <p id="uploadStatus" class="mt-2"></p>
+        </div>
+        -MIMEBoundary112233445566778899
+        Content-Type: application/xop+xml; charset=UTF-8; type="application/soap+xml"
+        Content-Transfer-Encoding: binary
+        Content-ID: <doc0@ihexds.nist.gov>
+        
+        <S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope"><S:Header><wsa:Action xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:s="http://www.w3.org/2003/05/soap-envelope" s:mustUnderstand="1">urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-bResponse</wsa:Action><wsa:RelatesTo xmlns:wsa="http://www.w3.org/2005/08/addressing">7ea47c3f-5b4f-46c3-b630-f421069b6996</wsa:RelatesTo></S:Header><S:Body><rs:RegistryResponse xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure"><rs:RegistryErrorList><rs:RegistryError codeContext="DocumentEntry(urn:uuid:131c7588-d774-43c4-8271-f5ac2a272175): Classification (classificationScheme=urn:uuid:aa543740-bdda-424e-8c96-df4873be8500 codingScheme=2.16.840.1.113883.6.1) of model urn:uuid:131c7588-d774-43c4-8271-f5ac2a272175 has an unknown classificationScheme attribute value: urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" errorCode="XDSRegistryMetadataError" location="RegistryObjectValidator" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" /><rs:RegistryError codeContext="DocumentEntry(urn:uuid:131c7588-d774-43c4-8271-f5ac2a272175): Classification(urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a)(Class Code) is required but missing" errorCode="XDSRegistryMetadataError" location="RegistryObjectValidator" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" /><rs:RegistryError codeContext="DocumentEntry(urn:uuid:131c7588-d774-43c4-8271-f5ac2a272175): the code 2.16.840.1.113883.6.1(34117-2) is not found in the Affinity Domain configuration" errorCode="XDSRegistryMetadataError" location="CodeValidation" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" /><rs:RegistryError codeContext="DocumentEntry(urn:uuid:131c7588-d774-43c4-8271-f5ac2a272175): the code 2.16.840.1.113883.6.101(200000000X) is not found in the Affinity Domain configuration" errorCode="XDSRegistryMetadataError" location="CodeValidation" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" /><rs:RegistryError codeContext="DocumentEntry(urn:uuid:131c7588-d774-43c4-8271-f5ac2a272175): the code 2.16.840.1.113883.6.1(34109-9) is not found in the Affinity Domain configuration" errorCode="XDSRegistryMetadataError" location="CodeValidation" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" /><rs:RegistryError codeContext="DocumentEntry(urn:uuid:131c7588-d774-43c4-8271-f5ac2a272175): the code 2.16.840.1.113883.6.96(394802001) is not found in the Affinity Domain configuration" errorCode="XDSRegistryMetadataError" location="CodeValidation" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" /><rs:RegistryError codeContext="SubmissionSet(urn:uuid:08729ff2-66f7-4603-97cd-60371420becd): the code 2.16.840.1.113883.6.1(34117-2) is not found in the Affinity Domain configuration" errorCode="XDSRegistryMetadataError" location="CodeValidation" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" /></rs:RegistryErrorList></rs:RegistryResponse></S:Body></S:Envelope>
+        <h5>Document IDs:</h5>
+        <div class="document-list" id="documentList"></div>
+
+        <div class="card p-3 mt-3" id="documentDetails" style="display: none;">
+            <h6>Document Details</h6>
+            <p><strong>Repository Unique Id:</strong> <span id="repoId"></span></p>
+            <p><strong>Document Unique Id:</strong> <span id="docId"></span></p>
+            <button class="btn btn-primary" id="downloadButton">DOWNLOAD</button>
+            <p id="response" class="mt-2"></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to find documents based on Patient ID
+        async function findDocument() {
+            const patientId = document.getElementById("patientId").value;
+            if (!patientId) {
+                alert("Please enter a Patient ID");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:5002/find_document", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ XDSDocumentEntryPatientId: patientId })
+                });
+
+                const data = await response.json();
+                const documentList = document.getElementById("documentList");
+                documentList.innerHTML = ""; // Clear previous list
+
+                if (!data["Documents"] || data["Documents"].length === 0) {
+                    documentList.innerHTML = "<p>No documents found.</p>";
+                    return;
+                }
+
+                // Create clickable document IDs with mimeType and value
+                data["Documents"].forEach(doc => {
+                    const card = document.createElement("div");
+                    card.className = "card p-2";
+                    card.innerHTML = `<strong>ID:</strong> ${doc.id} <br> 
+                                    <strong>Type:</strong> ${doc.mimeType} <br> 
+                                    <strong>Title:</strong> ${doc.Title}`;
+                    card.addEventListener("click", function() {
+                        selectDocument(doc.id, card); // Pass the card element to highlight it
+                    });
+                    documentList.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error fetching documents:", error);
+            }
+        }
+
+        // Function to fetch unique Document ID and highlight the selected card
+        async function selectDocument(docId, cardElement) {
+            try {
+                // Highlight the selected card
+                const cards = document.querySelectorAll(".document-list .card");
+                cards.forEach(card => card.classList.remove("selected-card")); // Remove highlight from all cards
+                cardElement.classList.add("selected-card"); // Add highlight to the selected card
+
+                const response = await fetch("http://127.0.0.1:5002/get_document", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ XDSDocumentEntryEntryUUID: docId })
+                });
+
+                const data = await response.json();
+                console.log("Backend response:", data); // Debugging log
+
+                if (response.ok) {
+                    document.getElementById("docId").innerText = data.Document_uniqueId; // Display unique ID
+                    document.getElementById("repoId").innerText = data.RepositoryUniqueId; // Correct key reference
+                    document.getElementById("documentDetails").style.display = "block"; // Show details section
+                    document.getElementById("downloadButton").dataset.docId = data.Document_uniqueId; // Store ID in button
+                } else {
+                    alert("Error fetching document details");
+                }
+            } catch (error) {
+                console.error("Error retrieving document:", error);
+            }
+        }
+
+        // Function to retrieve and download the document (PDF)
+        async function retrieveDocument() {
+            const docId = document.getElementById("downloadButton").dataset.docId; // Get stored docId
+            if (!docId) {
+                alert("No document selected!");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:5002/retrieve_document", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ DocumentUniqueIds: [docId] }) // Send selected document ID
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob(); // Get the PDF as a Blob
+                    const url = URL.createObjectURL(blob); // Create a URL for the Blob
+                    window.open(url, "_blank"); // Open the PDF in a new tab
+                    document.getElementById("response").innerText = "PDF retrieved successfully!";
+                } else {
+                    document.getElementById("response").innerText = await response.text();
+                }
+            } catch (error) {
+                console.error("Error retrieving document:", error);
+                document.getElementById("response").innerText = "Error retrieving document.";
+            }
+        }
+
+        // --- Upload PDF logic for /provide_register (test.py) ---
+        document.getElementById("uploadFile").addEventListener("click", async function() {
+            const fileInput = document.getElementById("fileInput");
+            const patientIdInput = document.getElementById("uploadPatientId");
+            const statusDiv = document.getElementById("uploadStatus");
+            statusDiv.innerText = "";
+            if (!fileInput.files.length) {
+                statusDiv.innerText = "Please select a PDF file.";
+                return;
+            }
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+            if (patientIdInput.value) {
+                formData.append("patientId", patientIdInput.value);
+            }
+            try {
+                const response = await fetch("http://127.0.0.1:5002/provide_register", {
+                    method: "POST",
+                    body: formData
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    statusDiv.innerText = "Upload successful!";
+                } else {
+                    const err = await response.text();
+                    statusDiv.innerText = "Upload failed: " + err;
+                }
+            } catch (error) {
+                statusDiv.innerText = "Error: " + error;
+            }
+        });
+
+        // Event Listeners
+        document.getElementById("getDocument").addEventListener("click", findDocument);
+        document.getElementById("downloadButton").addEventListener("click", retrieveDocument);
+    </script>
+</body>
+</html>
